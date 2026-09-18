@@ -1,0 +1,2 @@
+Multiple Floating WhatsApp 1.0.0
+The zip in this folder is the installable WordPress plugin.
