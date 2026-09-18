@@ -1,0 +1,146 @@
+.mfw-wrap .mfw-lead {
+	max-width: 780px;
+	font-size: 14px;
+}
+
+.mfw-layout {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	gap: 22px;
+	margin-top: 18px;
+}
+
+.mfw-column {
+	flex: 1 1 560px;
+	min-width: 0;
+}
+
+.mfw-column-side {
+	flex: 0 1 340px;
+	max-width: 400px;
+}
+
+.mfw-card {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 8px;
+	padding: 18px 20px;
+	margin-bottom: 20px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
+}
+
+.mfw-card h2 {
+	margin: 0 0 6px;
+	padding: 0;
+	font-size: 15px;
+}
+
+.mfw-card .form-table th {
+	width: 180px;
+	font-weight: 600;
+}
+
+.mfw-row-head,
+.mfw-row {
+	display: grid;
+	grid-template-columns: 22px minmax(120px, 1.1fr) minmax(140px, 1.2fr) minmax(150px, 1.4fr) 78px;
+	gap: 8px;
+	align-items: center;
+}
+
+.mfw-row-head {
+	padding: 0 0 6px;
+	border-bottom: 1px solid #f0f0f1;
+	margin-bottom: 8px;
+	font-size: 12px;
+	font-weight: 600;
+	color: #50575e;
+}
+
+.mfw-row {
+	padding: 6px 0;
+	background: #fff;
+}
+
+.mfw-row input[type="text"] {
+	width: 100%;
+}
+
+.mfw-row.mfw-sorting {
+	background: #f6f7f7;
+	outline: 1px dashed #8c8f94;
+}
+
+.mfw-drag {
+	display: block;
+	width: 14px;
+	height: 22px;
+	cursor: move;
+	background-image: radial-gradient(#8c8f94 1.4px, transparent 1.5px);
+	background-size: 7px 7px;
+	background-position: center;
+}
+
+.mfw-remove {
+	color: #b32d2e;
+}
+
+.mfw-remove:hover {
+	color: #8a2424;
+}
+
+.mfw-preview-stage {
+	position: relative;
+	min-height: 380px;
+	padding: 16px;
+	background: #f6f7f7;
+	border: 1px solid #dcdcde;
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.mfw-preview-stage .mfw-widget {
+	position: absolute;
+	bottom: 16px;
+	right: 16px;
+	z-index: 2;
+}
+
+.mfw-preview-stage .mfw-widget.mfw-position-bottom-left {
+	right: auto;
+	left: 16px;
+}
+
+.mfw-preview-stage .mfw-panel {
+	position: absolute;
+	opacity: 1;
+	visibility: visible;
+	transform: none;
+}
+
+.mfw-card code {
+	font-size: 12px;
+}
+
+@media screen and (max-width: 782px) {
+	.mfw-row-head {
+		display: none;
+	}
+
+	.mfw-row {
+		grid-template-columns: 22px 1fr;
+		row-gap: 6px;
+		padding: 10px 0;
+		border-bottom: 1px solid #f0f0f1;
+	}
+
+	.mfw-row input[type="text"] {
+		grid-column: 2;
+	}
+
+	.mfw-remove {
+		grid-column: 2;
+		text-align: left;
+	}
+}
