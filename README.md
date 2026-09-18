@@ -10,7 +10,8 @@ Built for sites that run several numbers, such as multiple branches, departments
 - Fallback label so an unfinished row renders as Button 1, Button 2 and so on
 - Fallback link so a row without a number points to the # anchor
 - Built in WhatsApp icon drawn inline, plus an optional custom icon URL
-- Color controls for launcher, panel header, panel background and text
+- Color controls for launcher, icon, panel header, panel background and text
+- Widget styles locked against theme button, link and svg rules
 - Editable panel title and optional intro line
 - Launcher sizes: small, medium, large
 - Position: bottom right or bottom left
@@ -51,6 +52,7 @@ Rows can be reordered by dragging the handle on the left.
 ### Appearance
 
 - Button color drives the launcher, the panel border and the button hover state. Default #0bb3b9.
+- Icon color draws the launcher glyph and the icon in the panel header. Default #ffffff.
 - Header background defaults to the button color when left empty.
 - Panel background and panel text color control the panel body.
 - Title is the text in the panel header, for example Chat with us.
@@ -76,10 +78,10 @@ When the site wide option is disabled, the widget renders only where the shortco
 Attributes override the saved values for that instance.
 
 ```
-[multiple_floating_wa position="bottom-left" size="large" title="Need help?" button_color="#128c7e" header_color="#075e54" panel_color="#ffffff" text_color="#222222" intro="Pick the closest branch." auto_open="5"]
+[multiple_floating_wa position="bottom-left" size="large" title="Need help?" button_color="#128c7e" icon_color="#ffffff" header_color="#075e54" panel_color="#ffffff" text_color="#222222" intro="Pick the closest branch." auto_open="5"]
 ```
 
-Accepted attributes: position, size, title, intro, button_color, header_color, panel_color, text_color, auto_open.
+Accepted attributes: position, size, title, intro, button_color, icon_color, header_color, panel_color, text_color, auto_open.
 
 ## Layout reference
 
@@ -91,6 +93,10 @@ The default front end matches a 260px panel in CSS pixels.
 - Body: 16px padding, 1px border in the button color, 10px radius
 - Buttons: 46px tall, 10px padding, 16px label text, 1px border, 10px radius, 16px between buttons
 - Hover on a button fills it with the button color and switches the label to white
+
+## Theme compatibility
+
+Themes often style every button, link and svg on the page, which turns a launcher into a bordered rectangle in the theme accent color. Every declaration that decides how the widget looks is scoped to the widget classes and marked important, so the launcher keeps its circle shape, background color, icon color and borderless edge whatever the theme does with plain buttons and links. The panel and its buttons are locked the same way.
 
 ## Developer hooks
 

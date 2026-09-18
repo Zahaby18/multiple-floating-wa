@@ -27,15 +27,17 @@
 				return;
 			}
 
-			var buttonColor = fieldValue('button_color') || '#25d366';
+			var buttonColor = fieldValue('button_color') || '#0bb3b9';
 			var headerColor = fieldValue('header_color') || buttonColor;
 			var panelColor = fieldValue('panel_color') || '#ffffff';
 			var textColor = fieldValue('text_color') || '#222222';
+			var iconColor = fieldValue('icon_color') || '#ffffff';
 
 			widget.style.setProperty('--mfw-button', buttonColor);
 			widget.style.setProperty('--mfw-header', headerColor);
 			widget.style.setProperty('--mfw-panel', panelColor);
 			widget.style.setProperty('--mfw-text', textColor);
+			widget.style.setProperty('--mfw-icon-color', iconColor);
 
 			var size = fieldValue('size') || 'medium';
 			var position = fieldValue('position') || 'bottom-right';

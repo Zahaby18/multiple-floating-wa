@@ -20,7 +20,8 @@ Features:
 * Fallback text so unfinished rows still show up as Button 1, Button 2 and so on
 * Fallback link so rows without a number point to the # anchor
 * WhatsApp icon included and drawn inline, plus an optional custom icon URL
-* Color controls for the launcher, the panel header, the panel and the text
+* Color controls for the launcher, the icon, the panel header, the panel and the text
+* Widget styles are locked against theme button and link styles, so the launcher stays a circle with a flat background color and no border
 * Editable panel title and intro line
 * Small, medium and large launcher sizes
 * Bottom right or bottom left placement
@@ -57,6 +58,10 @@ Turn off the site wide option, then add [multiple_floating_wa] to the pages you 
 = Can I change the WhatsApp icon? =
 
 The WhatsApp icon is included and used automatically. Paste an image URL in the custom icon field to replace it.
+
+= The launcher picked up a border or a different color on my site =
+
+That comes from theme button styles. The plugin locks the launcher size, circle shape, background color, icon color and border, and the same goes for the panel and its buttons, so theme rules for button, a and svg do not change how the widget looks. Clear any page cache after updating.
 
 = Does the widget work with page builders? =
 

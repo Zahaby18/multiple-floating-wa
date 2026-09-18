@@ -101,6 +101,7 @@ final class MFW_Plugin {
 			'position'      => 'bottom-right',
 			'size'          => 'medium',
 			'button_color'  => '#0bb3b9',
+			'icon_color'    => '#ffffff',
 			'header_color'  => '',
 			'panel_color'   => '#ffffff',
 			'text_color'    => '#222222',

@@ -86,6 +86,7 @@ class MFW_Frontend {
 				'size'         => '',
 				'title'        => '',
 				'button_color' => '',
+				'icon_color'   => '',
 				'header_color' => '',
 				'panel_color'  => '',
 				'text_color'   => '',
@@ -113,7 +114,7 @@ class MFW_Frontend {
 				continue;
 			}
 
-			if ( in_array( $target, array( 'button_color', 'header_color', 'panel_color', 'text_color' ), true ) ) {
+			if ( in_array( $target, array( 'button_color', 'icon_color', 'header_color', 'panel_color', 'text_color' ), true ) ) {
 				$color = sanitize_hex_color( $value );
 				if ( $color ) {
 					$settings[ $target ] = $color;
@@ -263,11 +264,12 @@ class MFW_Frontend {
 		}
 
 		$style = sprintf(
-			'--mfw-button:%1$s;--mfw-header:%2$s;--mfw-panel:%3$s;--mfw-text:%4$s;',
+			'--mfw-button:%1$s;--mfw-header:%2$s;--mfw-panel:%3$s;--mfw-text:%4$s;--mfw-icon-color:%5$s;',
 			esc_attr( $settings['button_color'] ),
 			esc_attr( $header_color ),
 			esc_attr( $settings['panel_color'] ),
-			esc_attr( $settings['text_color'] )
+			esc_attr( $settings['text_color'] ),
+			esc_attr( $settings['icon_color'] )
 		);
 
 		$title    = '' !== trim( (string) $settings['header_title'] ) ? $settings['header_title'] : __( 'Chat with us', 'multiple-floating-wa' );

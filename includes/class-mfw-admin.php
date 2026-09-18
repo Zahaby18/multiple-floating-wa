@@ -145,7 +145,7 @@ class MFW_Admin {
 		$sizes          = array( 'small', 'medium', 'large' );
 		$output['size'] = isset( $input['size'] ) && in_array( $input['size'], $sizes, true ) ? $input['size'] : $defaults['size'];
 
-		foreach ( array( 'button_color', 'header_color', 'panel_color', 'text_color' ) as $color_key ) {
+		foreach ( array( 'button_color', 'icon_color', 'header_color', 'panel_color', 'text_color' ) as $color_key ) {
 			$raw   = isset( $input[ $color_key ] ) ? trim( (string) $input[ $color_key ] ) : '';
 			$color = $raw ? sanitize_hex_color( $raw ) : '';
 
@@ -251,6 +251,13 @@ class MFW_Admin {
 								<tr>
 									<th scope="row"><?php esc_html_e( 'Button color', 'multiple-floating-wa' ); ?></th>
 									<td><?php $this->color_field( 'button_color', $settings ); ?></td>
+								</tr>
+								<tr>
+									<th scope="row"><?php esc_html_e( 'Icon color', 'multiple-floating-wa' ); ?></th>
+									<td>
+										<?php $this->color_field( 'icon_color', $settings ); ?>
+										<p class="description"><?php esc_html_e( 'Color of the launcher icon and the icon in the panel header.', 'multiple-floating-wa' ); ?></p>
+									</td>
 								</tr>
 								<tr>
 									<th scope="row"><?php esc_html_e( 'Header background', 'multiple-floating-wa' ); ?></th>
