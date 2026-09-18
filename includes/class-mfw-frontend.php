@@ -24,15 +24,24 @@ class MFW_Frontend {
 	 */
 	public function hooks() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'assets' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'register_assets' ), 1 );
 		add_action( 'wp_footer', array( $this, 'auto_output' ), 99 );
+	}
+
+	/**
+	 * Register styles and scripts. Runs in both the front end and the admin,
+	 * because the settings screen renders a live preview of the widget.
+	 */
+	public function register_assets() {
+		wp_register_style( 'mfw-frontend', MFW_URL . 'assets/css/frontend.css', array(), MFW_VERSION );
+		wp_register_script( 'mfw-frontend', MFW_URL . 'assets/js/frontend.js', array(), MFW_VERSION, true );
 	}
 
 	/**
 	 * Load styles and scripts when the widget can appear on the page.
 	 */
 	public function assets() {
-		wp_register_style( 'mfw-frontend', MFW_URL . 'assets/css/frontend.css', array(), MFW_VERSION );
-		wp_register_script( 'mfw-frontend', MFW_URL . 'assets/js/frontend.js', array(), MFW_VERSION, true );
+		$this->register_assets();
 
 		if ( $this->is_needed() ) {
 			wp_enqueue_style( 'mfw-frontend' );
@@ -46,7 +55,7 @@ class MFW_Frontend {
 	public function auto_output() {
 		$settings = MFW_Plugin::settings();
 
-		if ( $this->rendered || empty( $settings['enabled'] ) ) {
+		if ( $this->rendered || empty( $settings['enabled'] ) || $this->is_hidden( $settings ) ) {
 			return;
 		}
 
@@ -138,10 +147,6 @@ class MFW_Frontend {
 	private function is_needed() {
 		$settings = MFW_Plugin::settings();
 
-		if ( ! empty( $settings['enabled'] ) ) {
-			return true;
-		}
-
 		$post = get_post();
 
 		if ( $post && is_string( $post->post_content ) ) {
@@ -150,7 +155,46 @@ class MFW_Frontend {
 			}
 		}
 
-		return (bool) apply_filters( 'mfw_needs_assets', false );
+		if ( empty( $settings['enabled'] ) || $this->is_hidden( $settings ) ) {
+			return (bool) apply_filters( 'mfw_needs_assets', false );
+		}
+
+		return true;
+	}
+
+	/**
+	 * Is the widget excluded from the current request.
+	 *
+	 * @param array $settings Optional settings array.
+	 * @return bool
+	 */
+	public function is_hidden( $settings = null ) {
+		$settings = null === $settings ? MFW_Plugin::settings() : $settings;
+
+		if ( is_front_page() && ! empty( $settings['exclude_front'] ) ) {
+			return true;
+		}
+
+		if ( is_home() && ! empty( $settings['exclude_blog'] ) ) {
+			return true;
+		}
+
+		if ( is_singular() ) {
+			$post_id = (int) get_queried_object_id();
+			$ids     = array_map( 'intval', (array) $settings['exclude_ids'] );
+
+			if ( $post_id && in_array( $post_id, $ids, true ) ) {
+				return true;
+			}
+
+			$type = $post_id ? get_post_type( $post_id ) : '';
+
+			if ( $type && in_array( $type, (array) $settings['exclude_post_types'], true ) ) {
+				return true;
+			}
+		}
+
+		return (bool) apply_filters( 'mfw_is_hidden', false, $settings );
 	}
 
 	/**
@@ -211,6 +255,22 @@ class MFW_Frontend {
 		}
 
 		return $label;
+	}
+
+	/**
+	 * Launcher glyph size for a launcher size key.
+	 *
+	 * @param string $size Size key.
+	 * @return int
+	 */
+	public static function icon_size( $size ) {
+		$map = array(
+			'small'  => 28,
+			'medium' => 34,
+			'large'  => 44,
+		);
+
+		return isset( $map[ $size ] ) ? $map[ $size ] : $map['medium'];
 	}
 
 	/**
@@ -279,13 +339,14 @@ class MFW_Frontend {
 		$auto     = absint( $settings['auto_open'] );
 		$intro    = trim( (string) $settings['panel_intro'] );
 		$icon_url = $settings['icon_url'];
+		$icon_px  = self::icon_size( $size );
 
 		ob_start();
 		?>
 <div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" style="<?php echo esc_attr( $style ); ?>" data-mfw data-auto-open="<?php echo esc_attr( $auto ); ?>">
 	<div class="mfw-panel" role="dialog" aria-label="<?php echo esc_attr( $title ); ?>" aria-hidden="true">
 		<div class="mfw-panel-head">
-			<span class="mfw-panel-icon"><?php echo MFW_Icon::whatsapp(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+			<span class="mfw-panel-icon"><?php echo MFW_Icon::whatsapp( 30 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
 			<span class="mfw-panel-title"><?php echo esc_html( $title ); ?></span>
 		</div>
 		<div class="mfw-panel-body">
@@ -300,7 +361,7 @@ class MFW_Frontend {
 		</div>
 	</div>
 	<button type="button" class="mfw-launcher" aria-expanded="false" aria-label="<?php echo esc_attr__( 'Show WhatsApp numbers', 'multiple-floating-wa' ); ?>">
-		<span class="mfw-launcher-icon"><?php echo MFW_Icon::launcher( $icon_url ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+		<span class="mfw-launcher-icon"><?php echo MFW_Icon::launcher( $icon_url, $icon_px ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
 	</button>
 </div>
 		<?php

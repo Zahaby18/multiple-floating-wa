@@ -112,6 +112,10 @@ final class MFW_Plugin {
 			'hide_desktop'  => 0,
 			'hide_tablet'   => 0,
 			'hide_mobile'   => 0,
+			'exclude_ids'   => array(),
+			'exclude_post_types' => array(),
+			'exclude_front' => 0,
+			'exclude_blog'  => 0,
 			'open_new_tab'  => 1,
 			'items'         => array(
 				array(

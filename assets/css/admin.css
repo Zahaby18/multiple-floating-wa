@@ -92,12 +92,16 @@
 
 .mfw-preview-stage {
 	position: relative;
-	min-height: 380px;
+	min-height: 560px;
 	padding: 16px;
 	background: #f6f7f7;
 	border: 1px solid #dcdcde;
 	border-radius: 8px;
-	overflow: hidden;
+}
+
+.mfw-type-list label {
+	display: block;
+	margin-bottom: 4px;
 }
 
 .mfw-preview-stage .mfw-widget {

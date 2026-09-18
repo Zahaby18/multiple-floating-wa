@@ -18,6 +18,7 @@ Built for sites that run several numbers, such as multiple branches, departments
 - Panel opens on hover, on focus or on tap, and closes on an outside click or the Escape key
 - Auto open after a delay, once per visitor session
 - Per device visibility: desktop, tablet, mobile
+- Exclusions: by post, page or custom post type ID, by whole post type, and for the front page or the blog page
 - Live preview in the settings screen
 - Shortcode with attribute overrides
 - Vanilla JavaScript on the front end, no jQuery
@@ -66,6 +67,16 @@ Rows can be reordered by dragging the handle on the left.
 - Open chats in a new tab.
 - Auto open, in seconds. Zero keeps the panel closed until a visitor interacts. The panel opens once per session.
 - Hide on desktop, tablet or mobile.
+
+### Exclusions
+
+The widget is shown on every page by default. Anything below is skipped on top of that.
+
+- Exclude by ID takes a comma separated list of post, page or custom post type IDs, for example 12, 45, 301. The ID appears in the editor URL, for example post=301.
+- Exclude post types skips every single view of the checked post types.
+- Exclude special pages skips the front page and the blog page.
+
+Manual placement wins. A page that carries the shortcode keeps its widget even when its ID or its post type is excluded.
 
 ## Shortcode
 
@@ -120,6 +131,11 @@ add_filter( 'mfw_items', function ( $items, $settings ) {
 
 // Force the assets to load, useful when the markup is printed by custom code.
 add_filter( 'mfw_needs_assets', '__return_true' );
+
+// Hide the widget on a request the settings screen does not cover.
+add_filter( 'mfw_is_hidden', function ( $hidden, $settings ) {
+	return is_404() ? true : $hidden;
+}, 10, 2 );
 ```
 
 Front end helper for custom markup:

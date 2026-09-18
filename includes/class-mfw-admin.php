@@ -81,6 +81,8 @@ class MFW_Admin {
 			return;
 		}
 
+		mfw()->frontend->register_assets();
+
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style( 'mfw-frontend' );
 		wp_enqueue_style( 'mfw-admin', MFW_URL . 'assets/css/admin.css', array( 'mfw-frontend' ), MFW_VERSION );
@@ -168,6 +170,36 @@ class MFW_Admin {
 		$output['hide_desktop'] = empty( $input['hide_desktop'] ) ? 0 : 1;
 		$output['hide_tablet']  = empty( $input['hide_tablet'] ) ? 0 : 1;
 		$output['hide_mobile']  = empty( $input['hide_mobile'] ) ? 0 : 1;
+
+		$exclude_ids = array();
+
+		if ( isset( $input['exclude_ids'] ) ) {
+			foreach ( preg_split( '/[\s,]+/', (string) $input['exclude_ids'] ) as $chunk ) {
+				$chunk = absint( $chunk );
+
+				if ( $chunk ) {
+					$exclude_ids[] = $chunk;
+				}
+			}
+		}
+
+		$output['exclude_ids'] = array_values( array_unique( $exclude_ids ) );
+
+		$exclude_types = array();
+
+		if ( isset( $input['exclude_post_types'] ) && is_array( $input['exclude_post_types'] ) ) {
+			foreach ( $input['exclude_post_types'] as $type ) {
+				$type = sanitize_key( $type );
+
+				if ( $type && post_type_exists( $type ) ) {
+					$exclude_types[] = $type;
+				}
+			}
+		}
+
+		$output['exclude_post_types'] = array_values( array_unique( $exclude_types ) );
+		$output['exclude_front']      = empty( $input['exclude_front'] ) ? 0 : 1;
+		$output['exclude_blog']       = empty( $input['exclude_blog'] ) ? 0 : 1;
 
 		$items = array();
 
@@ -357,6 +389,41 @@ class MFW_Admin {
 							</table>
 						</div>
 
+						<div class="mfw-card">
+							<h2><?php esc_html_e( 'Exclusions', 'multiple-floating-wa' ); ?></h2>
+							<p class="description"><?php esc_html_e( 'The widget shows on every page by default. Anything listed here is skipped. Pages that carry the shortcode still render the widget.', 'multiple-floating-wa' ); ?></p>
+
+							<table class="form-table" role="presentation">
+								<tr>
+									<th scope="row"><label for="mfw-exclude-ids"><?php esc_html_e( 'Exclude by ID', 'multiple-floating-wa' ); ?></label></th>
+									<td>
+										<input type="text" class="regular-text" id="mfw-exclude-ids" name="<?php echo esc_attr( MFW_OPTION ); ?>[exclude_ids]" value="<?php echo esc_attr( implode( ', ', array_map( 'absint', (array) $settings['exclude_ids'] ) ) ); ?>" placeholder="12, 45, 301" />
+										<p class="description"><?php esc_html_e( 'Comma separated IDs. Works for posts, pages and any custom post type item. The ID is in the URL of the editor screen, for example post=301.', 'multiple-floating-wa' ); ?></p>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row"><?php esc_html_e( 'Exclude post types', 'multiple-floating-wa' ); ?></th>
+									<td>
+										<?php $this->post_type_checkboxes( $settings ); ?>
+										<p class="description"><?php esc_html_e( 'Every single view of a checked post type is skipped.', 'multiple-floating-wa' ); ?></p>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row"><?php esc_html_e( 'Exclude special pages', 'multiple-floating-wa' ); ?></th>
+									<td>
+										<label>
+											<input type="checkbox" name="<?php echo esc_attr( MFW_OPTION ); ?>[exclude_front]" value="1" <?php checked( $settings['exclude_front'], 1 ); ?> />
+											<?php esc_html_e( 'Front page', 'multiple-floating-wa' ); ?>
+										</label><br />
+										<label>
+											<input type="checkbox" name="<?php echo esc_attr( MFW_OPTION ); ?>[exclude_blog]" value="1" <?php checked( $settings['exclude_blog'], 1 ); ?> />
+											<?php esc_html_e( 'Blog page (posts page)', 'multiple-floating-wa' ); ?>
+										</label>
+									</td>
+								</tr>
+							</table>
+						</div>
+
 					</div>
 
 					<div class="mfw-column mfw-column-side">
@@ -413,6 +480,40 @@ class MFW_Admin {
 			<button type="button" class="button-link mfw-remove"><?php esc_html_e( 'Remove', 'multiple-floating-wa' ); ?></button>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Checkboxes for every public post type.
+	 *
+	 * @param array $settings Saved settings.
+	 */
+	private function post_type_checkboxes( $settings ) {
+		$types    = get_post_types( array( 'public' => true ), 'objects' );
+		$selected = array_map( 'strval', (array) $settings['exclude_post_types'] );
+
+		if ( empty( $types ) ) {
+			esc_html_e( 'No public post types found.', 'multiple-floating-wa' );
+
+			return;
+		}
+
+		echo '<div class="mfw-type-list">';
+
+		foreach ( $types as $type ) {
+			if ( 'attachment' === $type->name ) {
+				continue;
+			}
+
+			printf(
+				'<label><input type="checkbox" name="%1$s[exclude_post_types][]" value="%2$s" %3$s /> %4$s <code>%2$s</code></label>',
+				esc_attr( MFW_OPTION ),
+				esc_attr( $type->name ),
+				checked( in_array( (string) $type->name, $selected, true ), true, false ),
+				esc_html( $type->labels->singular_name )
+			);
+		}
+
+		echo '</div>';
 	}
 
 	/**

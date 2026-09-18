@@ -28,6 +28,7 @@ Features:
 * Panel opens on hover, on focus or on tap, and closes on an outside click
 * Auto open after a chosen delay, once per visitor session
 * Per device visibility for desktop, tablet and mobile
+* Exclusions by post ID, by post type and for the front page or the blog page, with the widget shown everywhere by default
 * Live preview inside the settings screen, no page reload needed
 * Optional shortcode for selected pages, with attribute overrides
 * Vanilla JavaScript on the front end, no jQuery dependency
@@ -50,6 +51,10 @@ International format without spaces or symbols, for example 6281234567890. A lea
 = How does the panel open and close? =
 
 It opens when a visitor hovers, focuses or taps the launcher, and closes when a visitor clicks anywhere outside the widget. Escape also closes it.
+
+= How do I hide the widget on some pages? =
+
+Open Settings, Floating WhatsApp and use the Exclusions card. Paste the IDs of the posts or pages you want to skip, tick the post types you want to skip, or tick the front page and the blog page. The widget keeps showing everywhere else, and a page that carries the shortcode still renders the widget even when its ID is excluded.
 
 = How do I place the widget on some pages only? =
 
