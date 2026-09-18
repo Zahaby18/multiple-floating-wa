@@ -9,11 +9,12 @@ Built for sites that run several numbers, such as multiple branches, departments
 - Unlimited buttons in one repeater, each with a label, a number or full URL, and a prefilled message
 - Fallback label so an unfinished row renders as Button 1, Button 2 and so on
 - Fallback link so a row without a number points to the # anchor
-- WhatsApp icon included, drawn inline with SVG, plus optional custom icon URL
+- Built in WhatsApp icon drawn inline, plus an optional custom icon URL
 - Color controls for launcher, panel header, panel background and text
 - Editable panel title and optional intro line
 - Launcher sizes: small, medium, large
 - Position: bottom right or bottom left
+- Panel opens on hover, on focus or on tap, and closes on an outside click or the Escape key
 - Auto open after a delay, once per visitor session
 - Per device visibility: desktop, tablet, mobile
 - Live preview in the settings screen
@@ -49,7 +50,7 @@ Rows can be reordered by dragging the handle on the left.
 
 ### Appearance
 
-- Button color drives the launcher, the button borders and the hover state. Default #25d366.
+- Button color drives the launcher, the panel border and the button hover state. Default #0bb3b9.
 - Header background defaults to the button color when left empty.
 - Panel background and panel text color control the panel body.
 - Title is the text in the panel header, for example Chat with us.
@@ -79,6 +80,17 @@ Attributes override the saved values for that instance.
 ```
 
 Accepted attributes: position, size, title, intro, button_color, header_color, panel_color, text_color, auto_open.
+
+## Layout reference
+
+The default front end matches a 260px panel in CSS pixels.
+
+- Launcher: 54px circle, 20px from the bottom and the right edge, 34px glyph
+- Panel: 260px wide, positioned 34px above the launcher
+- Header: 10px padding, 30px icon, 14px white title
+- Body: 16px padding, 1px border in the button color, 10px radius
+- Buttons: 46px tall, 10px padding, 16px label text, 1px border, 10px radius, 16px between buttons
+- Hover on a button fills it with the button color and switches the label to white
 
 ## Developer hooks
 
@@ -128,6 +140,10 @@ multiple-floating-wa/
     ├── js/admin.js
     └── js/frontend.js
 ```
+
+## Credits
+
+- WhatsApp icon from Bootstrap Icons (MIT), inlined as SVG so no extra request is made.
 
 ## Changelog
 

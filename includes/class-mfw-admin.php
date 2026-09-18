@@ -101,7 +101,7 @@ class MFW_Admin {
 			'mfwAdmin',
 			array(
 				'nextIndex'   => count( $settings['items'] ) + 1,
-				'defaultIcon' => MFW_Icon::whatsapp( 'mfw-svg mfw-svg-launcher' ),
+				'defaultIcon' => MFW_Icon::whatsapp(),
 				'i18n'        => array(
 					'button' => __( 'Button', 'multiple-floating-wa' ),
 				),

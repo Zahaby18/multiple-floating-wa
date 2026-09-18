@@ -1,13 +1,11 @@
 <?php
 /**
  * Plugin Name:       Multiple Floating WhatsApp
- * Plugin URI:        https://github.com/Zahaby18/multiple-floating-wa
- * Description:       Floating WhatsApp launcher with an unlimited number repeater, per button labels, prefilled messages, color controls and a built in WhatsApp icon. No shortcode required.
+ * Description:       Floating WhatsApp launcher with an unlimited number repeater, per button labels, prefilled messages, color controls and a built in WhatsApp icon.
  * Version:           1.0.0
  * Requires at least: 5.6
  * Requires PHP:      7.4
- * Author:            Zahaby
- * Author URI:        https://github.com/Zahaby18
+ * Author:            GenWork
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       multiple-floating-wa
@@ -102,7 +100,7 @@ final class MFW_Plugin {
 			'enabled'       => 1,
 			'position'      => 'bottom-right',
 			'size'          => 'medium',
-			'button_color'  => '#25d366',
+			'button_color'  => '#0bb3b9',
 			'header_color'  => '',
 			'panel_color'   => '#ffffff',
 			'text_color'    => '#222222',

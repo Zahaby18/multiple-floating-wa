@@ -10,8 +10,6 @@
 
 		var launcher = widget.querySelector('.mfw-launcher');
 		var panel = widget.querySelector('.mfw-panel');
-		var closeBtn = widget.querySelector('.mfw-close');
-		var hoverCapable = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 		if (!launcher || !panel) {
 			return;
@@ -29,39 +27,28 @@
 			panel.setAttribute('aria-hidden', 'true');
 		}
 
+		function isOpen() {
+			return widget.classList.contains('is-open');
+		}
+
+		launcher.addEventListener('mouseenter', open);
+		launcher.addEventListener('focus', open);
+
 		launcher.addEventListener('click', function (event) {
 			event.stopPropagation();
-
-			if (widget.classList.contains('is-open')) {
-				close();
-			} else {
-				open();
-			}
+			open();
 		});
 
-		if (hoverCapable) {
-			launcher.addEventListener('mouseenter', open);
-		}
-
-		if (closeBtn) {
-			closeBtn.addEventListener('click', function (event) {
-				event.stopPropagation();
-				close();
-			});
-		}
+		panel.addEventListener('mouseenter', open);
 
 		document.addEventListener('click', function (event) {
-			if (!widget.classList.contains('is-open')) {
-				return;
-			}
-
-			if (!widget.contains(event.target)) {
+			if (isOpen() && !widget.contains(event.target)) {
 				close();
 			}
 		});
 
 		document.addEventListener('keydown', function (event) {
-			if (event.key === 'Escape' && widget.classList.contains('is-open')) {
+			if (isOpen() && 'Escape' === event.key) {
 				close();
 			}
 		});

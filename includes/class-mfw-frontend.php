@@ -281,11 +281,10 @@ class MFW_Frontend {
 		ob_start();
 		?>
 <div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" style="<?php echo esc_attr( $style ); ?>" data-mfw data-auto-open="<?php echo esc_attr( $auto ); ?>">
-	<div class="mfw-panel" role="dialog" aria-modal="false" aria-label="<?php echo esc_attr( $title ); ?>" aria-hidden="true">
+	<div class="mfw-panel" role="dialog" aria-label="<?php echo esc_attr( $title ); ?>" aria-hidden="true">
 		<div class="mfw-panel-head">
-			<span class="mfw-panel-icon"><?php echo MFW_Icon::whatsapp( 'mfw-svg mfw-svg-head' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+			<span class="mfw-panel-icon"><?php echo MFW_Icon::whatsapp(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
 			<span class="mfw-panel-title"><?php echo esc_html( $title ); ?></span>
-			<button type="button" class="mfw-close" aria-label="<?php echo esc_attr__( 'Close', 'multiple-floating-wa' ); ?>"><?php echo MFW_Icon::close(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></button>
 		</div>
 		<div class="mfw-panel-body">
 			<?php if ( '' !== $intro ) : ?>
@@ -293,7 +292,6 @@ class MFW_Frontend {
 			<?php endif; ?>
 			<?php foreach ( $items as $item ) : ?>
 			<a class="mfw-item" href="<?php echo esc_url( $item['href'] ? $item['href'] : '#' ); ?>"<?php echo $target . $rel; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
-				<span class="mfw-item-icon"><?php echo MFW_Icon::whatsapp( 'mfw-svg mfw-svg-item' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
 				<span class="mfw-item-label"><?php echo esc_html( $item['label'] ); ?></span>
 			</a>
 			<?php endforeach; ?>
