@@ -156,6 +156,8 @@ multiple-floating-wa/
 │   ├── class-mfw-admin.php
 │   ├── class-mfw-frontend.php
 │   └── class-mfw-icon.php
+├── languages/
+│   └── multiple-floating-wa.pot
 └── assets/
     ├── css/admin.css
     ├── css/frontend.css
