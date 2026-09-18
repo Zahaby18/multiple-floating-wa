@@ -68,11 +68,27 @@
 
 		var delay = parseInt(widget.dataset.autoOpen, 10);
 
-		if (delay > 0 && !sessionStorage.getItem('mfwAutoOpened')) {
+		if (delay > 0 && !hasAutoOpened()) {
 			window.setTimeout(function () {
 				open();
-				sessionStorage.setItem('mfwAutoOpened', '1');
+				markAutoOpened();
 			}, delay * 1000);
+		}
+	}
+
+	function hasAutoOpened() {
+		try {
+			return '1' === window.sessionStorage.getItem('mfwAutoOpened');
+		} catch (error) {
+			return true;
+		}
+	}
+
+	function markAutoOpened() {
+		try {
+			window.sessionStorage.setItem('mfwAutoOpened', '1');
+		} catch (error) {
+			return;
 		}
 	}
 
