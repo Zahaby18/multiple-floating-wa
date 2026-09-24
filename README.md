@@ -8,7 +8,8 @@ Built for sites that run several numbers, such as branches, departments or teams
 |---|---|
 | Version | 1.0.0 (final) |
 | Requires | WordPress 5.6 or newer |
-| PHP | 7.4 or newer |
+| Tested up to | WordPress 7.1.2 |
+| PHP | 7.4 or newer, verified on 8.4 |
 | License | GPL-2.0-or-later |
 | Distribution | Paid digital download |
 
@@ -46,6 +47,8 @@ Because the plugin is licensed under GPL-2.0-or-later, the licence itself permit
 
 - WordPress 5.6 or newer
 - PHP 7.4 or newer
+
+Verified on WordPress 7.1.2 with PHP 8.4: the plugin activates and renders the widget on the front end without notices or errors.
 
 ## Installation
 
