@@ -1,10 +1,8 @@
 === Multiple Floating WhatsApp ===
-Contributors: genwork
-Tags: whatsapp, floating button, click to chat, whatsapp chat, sticky button
 Requires at least: 5.6
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Version: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +11,10 @@ A floating WhatsApp launcher with unlimited numbers, per button labels, prefille
 == Description ==
 
 Multiple Floating WhatsApp adds a floating launcher to the corner of your site. Hovering or tapping it opens a panel that lists every WhatsApp number you configured, so visitors pick the right department, branch or team in one tap. The panel stays open until a visitor clicks somewhere else.
+
+This is a commercial release distributed as a paid digital download. It is not published on the WordPress.org plugin directory, and the source repository is private.
+
+Version 1.0.0 is the final release. No further feature, compatibility or security updates are planned. Support covers installation and configuration of version 1.0.0 on the store where the plugin was purchased.
 
 Features:
 
@@ -25,14 +27,14 @@ Features:
 * Editable panel title and intro line
 * Small, medium and large launcher sizes
 * Bottom right or bottom left placement
-* Panel opens on hover, on focus or on tap, and closes on an outside click
+* Panel opens on hover, on focus or on tap, and closes on an outside click or the Escape key
 * Auto open after a chosen delay, once per visitor session
 * Per device visibility for desktop, tablet and mobile
 * Exclusions by post ID, by post type and for the front page or the blog page, with the widget shown everywhere by default
 * Live preview inside the settings screen, no page reload needed
 * Optional shortcode for selected pages, with attribute overrides
 * Vanilla JavaScript on the front end, no jQuery dependency
-* Translated strings, GPL licensed and multisite aware
+* Multisite aware, translated strings
 
 == Installation ==
 
@@ -66,7 +68,7 @@ The WhatsApp icon is included and used automatically. Paste an image URL in the 
 
 = The launcher picked up a border or a different color on my site =
 
-That comes from theme button styles. The plugin locks the launcher size, circle shape, background color, icon color and border, and the same goes for the panel and its buttons, so theme rules for button, a and svg do not change how the widget looks. Clear any page cache after updating.
+That comes from theme button styles. The plugin locks the launcher size, circle shape, background color, icon color and border, and the same goes for the panel and its buttons, so theme rules for button, a and svg do not change how the widget looks. Clear any page cache after activating.
 
 = Does the widget work with page builders? =
 
@@ -76,6 +78,10 @@ Yes. It is rendered on the front end, so Elementor, block themes and classic the
 
 Yes. Use 0 to keep the panel closed until a visitor interacts with the launcher.
 
+= Will the plugin receive updates? =
+
+No. Version 1.0.0 is the final release.
+
 == Screenshots ==
 
 1. Settings screen with the button repeater and the live preview.
@@ -83,10 +89,11 @@ Yes. Use 0 to keep the panel closed until a visitor interacts with the launcher.
 
 == Changelog ==
 
-= 1.0.0 =
+= 1.0.0 (final release) =
 * First release.
+* Final version. No further updates are planned.
 
 == Upgrade Notice ==
 
 = 1.0.0 =
-* First release.
+* First release. This is the final version of the plugin.

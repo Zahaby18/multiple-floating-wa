@@ -1,8 +1,26 @@
 # Multiple Floating WhatsApp
 
-A WordPress plugin that adds one floating WhatsApp launcher to your site. The launcher opens a panel listing every WhatsApp number you configured, each with its own label and prefilled message.
+A WordPress plugin that adds one floating WhatsApp launcher to your site. The launcher opens a panel that lists every WhatsApp number you configured, each with its own label and prefilled message.
 
-Built for sites that run several numbers, such as multiple branches, departments or teams, where a single floating button is not enough.
+Built for sites that run several numbers, such as branches, departments or teams, where a single floating button is not enough.
+
+| | |
+|---|---|
+| Version | 1.0.0 (final) |
+| Requires | WordPress 5.6 or newer |
+| PHP | 7.4 or newer |
+| License | GPL-2.0-or-later |
+| Distribution | Paid digital download |
+
+## Distribution and support
+
+This plugin is a commercial release. It is sold as a digital download and the source repository is private.
+
+**Version 1.0.0 is the final release.** No further feature, compatibility or security updates are planned. The build you receive is the build that ships.
+
+Support covers installation and configuration questions about version 1.0.0, on the store where the plugin was purchased. It does not cover customisations, third party conflicts or changes to WordPress and PHP that were released after this build.
+
+Because the plugin is licensed under GPL-2.0-or-later, the licence itself permits anyone who receives a copy to redistribute it. What you are paying for is the finished build, the documentation and the configuration support, not exclusivity of the code.
 
 ## Features
 
@@ -22,7 +40,7 @@ Built for sites that run several numbers, such as multiple branches, departments
 - Live preview in the settings screen
 - Shortcode with attribute overrides
 - Vanilla JavaScript on the front end, no jQuery
-- Multisite aware, GPL licensed, translation ready
+- Multisite aware, translation ready
 
 ## Requirements
 
@@ -109,6 +127,34 @@ The default front end matches a 260px panel in CSS pixels.
 
 Themes often style every button, link and svg on the page, which turns a launcher into a bordered rectangle in the theme accent color. Every declaration that decides how the widget looks is scoped to the widget classes and marked important, so the launcher keeps its circle shape, background color, icon color and borderless edge whatever the theme does with plain buttons and links. The panel and its buttons are locked the same way.
 
+The widget is rendered on the front end, so it works with block themes, classic themes and page builders such as Elementor without extra configuration.
+
+## FAQ
+
+### Which number format should I use?
+
+International format without spaces or symbols, for example 6281234567890. A leading plus sign is removed automatically. A full WhatsApp URL such as https://wa.me/6281234567890 is also accepted.
+
+### How does the panel open and close?
+
+It opens when a visitor hovers, focuses or taps the launcher, and closes when a visitor clicks anywhere outside the widget. Escape also closes it.
+
+### How do I hide the widget on some pages?
+
+Open Settings, Floating WhatsApp and use the Exclusions card. Paste the IDs of the posts or pages you want to skip, tick the post types you want to skip, or tick the front page and the blog page. The widget keeps showing everywhere else, and a page that carries the shortcode still renders the widget even when its ID is excluded.
+
+### How do I place the widget on some pages only?
+
+Turn off the site wide option, then add `[multiple_floating_wa]` to the pages you want. Attributes override saved values, as shown in the shortcode section.
+
+### The launcher picked up a border or a different color on my site
+
+That comes from theme button styles. The plugin locks the launcher size, circle shape, background color, icon color and border, and the same goes for the panel and its buttons. Clear any page cache after activating.
+
+### Does the widget work with page builders?
+
+Yes. It is rendered on the front end, so Elementor, block themes and classic themes all work. The shortcode is available when you need manual placement.
+
 ## Developer hooks
 
 ```php
@@ -135,13 +181,6 @@ add_filter( 'mfw_needs_assets', '__return_true' );
 // Hide the widget on a request the settings screen does not cover.
 add_filter( 'mfw_is_hidden', function ( $hidden, $settings ) {
 	return is_404() ? true : $hidden;
-}, 10, 2 );
-```
-
-Front end helper for custom markup:
-
-```php
-echo mfw()->frontend->render( MFW_Plugin::settings() );
 ```
 
 ## File structure
@@ -152,6 +191,7 @@ multiple-floating-wa/
 ├── uninstall.php
 ├── readme.txt
 ├── README.md
+├── LICENSE
 ├── includes/
 │   ├── class-mfw-admin.php
 │   ├── class-mfw-frontend.php
@@ -171,9 +211,10 @@ multiple-floating-wa/
 
 ## Changelog
 
-### 1.0.0
+### 1.0.0 (final release)
 
 - First release.
+- Final version. No further updates are planned.
 
 ## License
 
